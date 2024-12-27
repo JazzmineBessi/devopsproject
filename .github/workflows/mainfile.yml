@@ -1,0 +1,41 @@
+name: CI Pipeline for Jest and Linting
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint-and-test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Step 4: Run linting
+    - name: Run ESLint
+      run: npm run lint
+
+    # Step 5: Run Jest tests with coverage
+    - name: Run Jest tests
+      run: npm test -- --coverage
+
+    # Step 6: Show Jest coverage report in the workflow logs
+    - name: Display Jest Coverage Report
+      run: |
+        echo "Coverage Report:"
+        cat ./coverage/lcov-report/index.html || echo "Coverage report not found."
