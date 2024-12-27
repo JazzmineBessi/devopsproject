@@ -1,0 +1,38 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  fake-tests:
+    name: Fake Jest Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Simulate Jest tests
+    - name: Run Fake Jest Tests
+      run: |
+        echo "Running Jest tests..."
+        echo "---------------------------------"
+        echo "PASS  src/__tests__/example.test.js"
+        echo "✓ Should correctly add two numbers (3ms)"
+        echo "✓ Should return an array (5ms)"
+        echo "FAIL  src/__tests__/another.test.js"
+        echo "✕ Should handle edge cases (15ms)"
+        echo "---------------------------------"
+        echo "Test Suites: 1 failed, 1 passed, 2 total"
+        echo "Tests:       1 failed, 2 passed, 3 total"
+        echo "Snapshots:   0 total"
+        echo "Time:        2.045s"
+        echo "Ran all test suites."
+
+    # Step 3: Show a final message
+    - name: Display Fake Test Result
+      run: echo "All done! This was just a fake test run. 😊"
